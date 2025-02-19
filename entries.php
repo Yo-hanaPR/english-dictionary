@@ -6,13 +6,13 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST"); 
 
 $method = $_SERVER['REQUEST_METHOD'];
-
+/*
 if ($method == "GET") {
     $stmt = $pdo->query("SELECT entries.*, categories.name as category FROM entries 
                          JOIN categories ON entries.category_id = categories.id
-                         ORDER BY entries.created_at DESC");
+                         ORDER BY entries.created_at ASC");
     echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
-}
+}*/
 
 if ($method == "POST") {
     $data = json_decode(file_get_contents("php://input"), true);

@@ -11,7 +11,7 @@ $selected_category = isset($_GET['category']) ? $_GET['category'] : 'WORDS';
 // Obtener los elementos correspondientes a la categoría seleccionada
 $entries = [];
 if ($selected_category) {
-    $stmt = $pdo->prepare("SELECT * FROM entries WHERE category_id = (SELECT id FROM categories WHERE name = ?)");
+    $stmt = $pdo->prepare("SELECT * FROM entries WHERE category_id = (SELECT id FROM categories WHERE name = ?) ORDER BY id DESC");
     $stmt->execute([$selected_category]);
     $entries = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -52,6 +52,10 @@ if ($selected_category) {
                         <div class="bg-blue-200 p-4 rounded-xl shadow-md">
                             <h3 class="text-xl font-bold"><?php echo $entry['title']; ?></h3>
                             <p class="text-gray-700 italic"><?php echo $entry['content']; ?></p>
+                            <div class="float-right text-white p-4 rounded-lg">
+                                <a href="edit_entry.php?id=<?= $entry['id']; ?>" class="bg-blue-500 text-white px-4 py-2 rounded">Editar</a>
+                                <a href="delete_entry.php?id=<?= $entry['id']; ?>" class="bg-red-500 text-white px-4 py-2 rounded" onclick="return confirm('¿Estás seguro de que deseas eliminar esta entrada?');">Eliminar</a>
+                            </div>
                         </div>
                     <?php endforeach; ?>
                 </div>
