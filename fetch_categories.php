@@ -3,6 +3,7 @@ include 'config.php';
 
 // Obtener todas las categorías de la base de datos
 $stmt = $pdo->query("SELECT * FROM categories");
+$stmt->execute();
 $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Devolver los resultados en formato JSON
